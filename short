@@ -1,0 +1,8 @@
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
+from tensorflow.keras.applications.vgg16 import preprocess_input, decode_predictions, VGG16
+
+image = img_to_array(load_img('download.jpg', target_size=(224, 224)))
+image = preprocess_input(image)
+model = VGG16()
+label = decode_predictions(model.predict(image.reshape(1, 224, 224, 3)))
+print('Predicted: %s (%.2f%%)' % (label[0][0][1], label[0][0][2] * 100))
